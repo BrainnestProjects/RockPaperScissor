@@ -1,16 +1,10 @@
 const computerSelections = ['rock','paper','scissors'];
 const playerWins = [
-    ["rock", "scissors"],
-    ["scissors", "paper"],
-    ["paper", "rock"]
+    {player:'rock' , computer:'scissors'},
+    {player:'scissors', computer:'paper'},
+    {player:'paper', computer:'rock'}
   ];
-  
-  const computerWins = [
-    ["rock", "paper"],
-    ["scissors", "rock"],
-    ["paper", "scissors"]
-  ];
-  
+
 let computerPoint=0;
 let playerPoint=0;
 
@@ -21,7 +15,10 @@ return randomIndex;
 
 function playerPlay(){
 let playerChose = prompt("enter your selection form \"rock\" , \"paper\" , \"scissors\" ")
-playerChose = playerChose.toLocaleLowerCase();
+
+if(playerChose){
+    playerChose = playerChose.toLocaleLowerCase();
+}
 
 if(!computerSelections.includes(playerChose)){
     alert(" Invalid input")
@@ -31,51 +28,49 @@ return playerChose;
 }
 
 function game(){
-    // console.log(computerSelection);
-    // console.log(playerSelection);
-    for(let i=0 ; i<5 ;++i){
-         playRound( playerSelection , computerSelection );
-    }
+
+    for(let i=0 ; i<5 ; i++){
+        const computerSelection = computerSelections[computerPlay(computerSelections)];
+        console.log("Computer Selection :" , computerSelection);
+        playerSelection = playerPlay();
+        console.log("Player Selection :" , playerSelection);
+        playRound( playerSelection , computerSelection );
+   }
+    finalResult(playerPoint,computerPoint);
 
 }
 
 function playRound( playerSelection , computerSelection ){
-    const selectionArr = [playerSelection, computerSelection];
 
-    // playerselection ComputerSelection Winner
-    // Rock             Scissors          Player
-    // Rock             Paper             computer
-    // Rock             Rock               Tie
-    // Scissors         Rock               Computer
-   //  Scissors         Paper               Player
-    // Scissors         Scissors            Tie
-    // Paper            Rock                Player
-    // Paper            Scissors            Computer
-    // Paper            Paper               Tie
     if(playerSelection === computerSelection)
      {
         alert("Its a Tie!");
      }else{
-        //alert("You Lose!");
-        if(playerWins.includes(selectionArr))
-        {
-            alert("Player Wins");
+        
+
+        let result=playerWins.filter(
+            item =>item.player == playerSelection && item.computer==computerSelection
+            )
+        if (result.length > 0){
+            console.log("Player Wins");
             playerPoint++;
         }
-        if(computerWins.includes(selectionArr)){
-            alert("computer Wins");
+        else{
+            console.log("computer Wins");
             computerPoint++;
         }
      }
-     playerSelection = playerPlay();
-     computerSelection = computerSelections[computerPlay(computerSelections)];
-
 
 }
+function finalResult(playerPoint,computerPoint){
+    console.log("playerPoint : ",playerPoint);
+    console.log("computerPoint : ",computerPoint);
+    if(playerPoint == computerPoint) console.log("result : Equal")
+    else{
+        if(playerPoint > computerPoint) console.log("Player Wins")
+        else  console.log("computer Wins");
+    }
 
-const playerSelection = playerPlay();
-const computerSelection = computerSelections[computerPlay(computerSelections)];
-// console.log(computerSelection)
-// console.log(playerSelection);
+}
 game();
 
