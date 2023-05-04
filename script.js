@@ -16,25 +16,32 @@ return randomIndex;
 function playerPlay(){
 let playerChose = prompt("enter your selection form \"rock\" , \"paper\" , \"scissors\" ")
 
-if(playerChose){
-    playerChose = playerChose.toLocaleLowerCase();
-}
-
-if(!computerSelections.includes(playerChose)){
+if(!computerSelections.includes(playerChose) && playerSelection !=""){
+    // playerChose = "Invalid";
     alert(" Invalid input")
+    playerChose=null;
+    delete window.playerChose;
+   playerPlay();
 }
-
+playerChose = playerChose.toLowerCase();
 return playerChose;
 }
 
+
 function game(){
 
-    for(let i=0 ; i<5 ; i++){
+    // let rounds = 5;
+    for(let i=0 ; i < 5 ; i++){
         const computerSelection = computerSelections[computerPlay(computerSelections)];
         console.log("Computer Selection :" , computerSelection);
         playerSelection = playerPlay();
-        console.log("Player Selection :" , playerSelection);
-        playRound( playerSelection , computerSelection );
+        // if(playerSelection === "Invalid")
+        // {
+        //     rounds = rounds + 1;
+        // }else{
+            console.log("Player Selection :" , playerSelection);
+            playRound( playerSelection , computerSelection );
+        // }
    }
     finalResult(playerPoint,computerPoint);
 
@@ -49,7 +56,7 @@ function playRound( playerSelection , computerSelection ){
         
 
         let result=playerWins.filter(
-            item =>item.player == playerSelection && item.computer==computerSelection
+            item =>item.player === playerSelection && item.computer===computerSelection
             )
         if (result.length > 0){
             console.log("Player Wins");
