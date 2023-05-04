@@ -14,16 +14,18 @@ return randomIndex;
 }
 
 function playerPlay(){
-let playerChose = prompt("enter your selection form \"rock\" , \"paper\" , \"scissors\" ")
-
-if(!computerSelections.includes(playerChose) && playerSelection !=""){
+    let playerChose = prompt("enter your selection form \"rock\" , \"paper\" , \"scissors\" ")
+    if(playerChose){
+    playerChose = playerChose.toLowerCase();
+    }
+    if(!computerSelections.includes(playerChose)) {
     // playerChose = "Invalid";
     alert(" Invalid input")
     playerChose=null;
     delete window.playerChose;
    playerPlay();
 }
-playerChose = playerChose.toLowerCase();
+
 return playerChose;
 }
 
