@@ -5,31 +5,25 @@ const playerWins = [
     {"player":"paper", "computer":"rock"}
   ];
   
-  const computerWins = [
-    {"player":"rock", "computer":"paper"},
-    {"player":"scissors", "computer":"rock"},
-    {"player":"paper", "computer":"scissors"}
-  ];
- 
-let playerSelection;
-let computerSelection;  
-let computerPoint=0;
-let playerPoint=0;
-let tiePoint = 0;
+let computerPoint = 0;
+let playerPoint = 0;
+let tiePoint = 0;  
+  
 
 /**
+ * This function ramdomly generates computer selection
  * 
- * @param {*} computerSelections 
- * @returns random index
+ * @returns Computer's Selection
  */
-function computerPlay(computerSelections){
+function computerPlay(){
     let randomIndex = Math.floor(Math.random() * computerSelections.length)
-    return randomIndex;
+    return computerSelections[randomIndex];;
 }
 
 /**
+ * This function takes Player Input from console and also validates it.
  * 
- * @returns player selection
+ * @returns player's selection
  */
 function playerPlay(){
     let playerChose = prompt("enter your selection form \"rock\" , \"paper\" , \"scissors\" ");
@@ -39,81 +33,94 @@ function playerPlay(){
     }
 
     if(!computerSelections.includes(playerChose)){
-        alert(" Invalid input");
+        playerChose = "Invalid";
+        alert("Invalid input");
     }
 
     return playerChose;
 }
 
-function compareStrings(a, b) {
-    return JSON.stringify(a) === JSON.stringify(b);
-}
-
-
+/**
+ * Play Round - This function decides a winner of a single game round.
+ * 
+ * @param {playerSelection} playerSelection 
+ * @param {computerSelection} computerSelection 
+ * @returns 
+ */
 function playRound( playerSelection , computerSelection ){
-    const selectionsOfRound ={ "player": playerSelection, "computer" : computerSelection};
 
-    // playerselection ComputerSelection Winner
-    // Rock             Scissors          Player
-    // Rock             Paper             computer
-    // Rock             Rock               Tie
-    // Scissors         Rock               Computer
-   //  Scissors         Paper               Player
-    // Scissors         Scissors            Tie
-    // Paper            Rock                Player
-    // Paper            Scissors            Computer
-    // Paper            Paper               Tie
+    let roundResult = "";
+    
     if(playerSelection === computerSelection)
      {
-        //alert("Its a Tie!");
+        roundResult = "Its a Tie!";
         tiePoint++;
      }else{
 
-        for(let i = 0 ; i<playerWins.length; i++)
-        {
-            if( compareStrings(selectionsOfRound, playerWins[i]))
-            {
-                console.log("Player Wins");
-                playerPoint++;
-                break;
-            }
+        let result = playerWins.filter( item =>item.player === playerSelection && item.computer === computerSelection )
 
-            if( compareStrings(selectionsOfRound, computerWins[i]))
-            {
-                console.log("Computer Wins");
-                computerPoint++;
-                break;
-            }
+        if (result.length > 0){
+            roundResult = "You Win! " + playerSelection + " beats " + computerSelection;
+            playerPoint++;
+        }
+        else{
+            roundResult = "You Lose! " + computerSelection + " beats " + playerSelection;
+            computerPoint++;
         }
      }
-     computerSelection = computerSelections[computerPlay(computerSelections)];
 
-
+     return roundResult;
 }
 
-function game(){
-    
-    for(let i=0 ; i<5 ; i++){
-         const computerSelection = computerSelections[computerPlay(computerSelections)];
-         console.log("Computer Selection :" , computerSelection);
-         playerSelection = playerPlay();
-         
-         playRound( playerSelection , computerSelection );
-    }
-
-    console.log("playerPoint : ",playerPoint);
-    console.log("computerPoint : ",computerPoint);
-    console.log("tiePoint :",tiePoint);
-    if(playerPoint > computerPoint && playerPoint > tiePoint)
+/**
+ * This function declares final result based on points.
+ */
+function finalGameResult(){
+    console.log("player Points : ",playerPoint);
+    console.log("computer Points : ",computerPoint);
+    console.log("tiePoints :",tiePoint);
+    if(playerPoint > computerPoint && playerPoint >= tiePoint)
     {
-        alert("Player Won");
-    }else if(computerPoint > playerPoint && computerPoint >tiePoint)
+        console.log("Player is a Winner");
+        alert("Congratulations...You Win!");
+    }else if(computerPoint > playerPoint && computerPoint >=tiePoint)
     {
-        alert("Computer Won");
+        console.log("Computer is a Winner");
+        alert("Oops... You Lose");
     }else
     {
-        alert("Its a Tie");
+        console.log("Its a Tie!");
+        alert("Its a Tie!");
     }
+}
+
+/**
+ * This function is to start the game of 5 rounds.
+ */
+function game(){
+
+    let playerSelection;
+    let computerSelection;
+    let rounds = 5;
+    for(let i=0 ; i<rounds ; i++){
+         
+         playerSelection = playerPlay();
+
+         if(playerSelection === "Invalid")
+         {
+            rounds = rounds + 1;
+         }
+         else{
+            computerSelection = computerPlay();
+            console.log("Computer's Selection :" , computerSelection); 
+            let roundResult = playRound( playerSelection , computerSelection );
+            if(roundResult)
+            {
+                console.log(roundResult);
+            }
+         }
+    }
+    finalGameResult();
 }
 
 game();
