@@ -17,7 +17,7 @@ let tiePoint = 0;
  */
 function computerPlay(){
     let randomIndex = Math.floor(Math.random() * computerSelections.length)
-    return computerSelections[randomIndex];;
+    return computerSelections[randomIndex];
 }
 
 /**
@@ -113,6 +113,8 @@ function game(){
          else{
             computerSelection = computerPlay();
             console.log("Computer's Selection :" , computerSelection); 
+            console.log("Player's Selection :" , playerSelection); 
+
             let roundResult = playRound( playerSelection , computerSelection );
             if(roundResult)
             {
