@@ -56,7 +56,7 @@ function playRound( playerSelection , computerSelection , gamePoints){
         let result = playerWins.filter( item =>item.player === playerSelection && item.computer === computerSelection )
 
         if (result.length > 0){
-            roundResult = "You Win! " + playerSelection + " beats " + computerSelection;
+            roundResult = "You Won! " + playerSelection + " beats " + computerSelection;
             gamePoints.playerPoint++;
         }
         else{
@@ -79,14 +79,14 @@ function finalGameResult(gamePoints){
     console.log("player Points : ",gamePoints.playerPoint);
     console.log("computer Points : ",gamePoints.computerPoint);
     console.log("tiePoints :",gamePoints.tiePoint);
-    if(gamePoints.playerPoint > gamePoints.computerPoint && gamePoints.playerPoint >= gamePoints.tiePoint)
+    if(gamePoints.playerPoint > gamePoints.computerPoint)
     {
         console.log("Player is a Winner");
-        alert("Congratulations...You Win!");
-    }else if(gamePoints.computerPoint > gamePoints.playerPoint && gamePoints.computerPoint >= gamePoints.tiePoint)
+        alert("Congratulations...You Won The Game!");
+    }else if(gamePoints.computerPoint > gamePoints.playerPoint)
     {
         console.log("Computer is a Winner");
-        alert("Oops... You Lose!");
+        alert("Oops... You Lose The Game!");
     }else
     {
         console.log("Its a Tie!");
