@@ -6,9 +6,9 @@ const playerWins = [
   ];
  
 /**
- * This function ramdomly generates computer selection
+ * This function ramdomly generates computer selections
  * 
- * @returns Computer's Selection
+ * @returns {string} Computer's Selection  : 'rock' or 'paper' or 'scissors' based on random index generated
  */
 function computerPlay(){
     let randomIndex = Math.floor(Math.random() * computerSelections.length)
@@ -18,10 +18,10 @@ function computerPlay(){
 /**
  * This function takes Player Input from console and also validates it.
  * 
- * @returns player's selection
+ * @returns {string} player's selection taken from console
  */
 function playerPlay(){
-    let playerChose = prompt("enter your selection form \"rock\" , \"paper\" , \"scissors\" ");
+    let playerChose = prompt("Enter your selection form \"rock\" , \"paper\" , \"scissors\" ");
     if(playerChose)
     {
         playerChose = playerChose.toLowerCase();
@@ -36,15 +36,14 @@ function playerPlay(){
 }
 
 /**
- * Play Round - This function decides a winner of a single game round.
+ * Play Round - This function decides the winner of a single game round.
  * 
- * @param {playerSelection} playerSelection 
- * @param {computerSelection} computerSelection 
- * @param {gamePoints} gamePoints 
- * @returns {gamePoints} returns individual points for Computer,Player and Tie
+ * @param {string} playerSelection 
+ * @param {string} computerSelection 
+ * @param {object} gamePoints - object which will store points scored by player/computer or tie.
+ * @returns {object} gamePoints returns individual points for Computer,Player and Tie
  */
 function playRound( playerSelection , computerSelection , gamePoints){
-
     let roundResult = "";
         
     if(playerSelection === computerSelection)
@@ -65,15 +64,15 @@ function playRound( playerSelection , computerSelection , gamePoints){
         }
      }
      if(roundResult)
-        {
-           console.log(roundResult);
-        }
+     {
+        console.log(roundResult);
+     }
      return gamePoints;
 }
 
 /**
- * This function declares final result based on points.
- * @param {gamePoints} gamePoints
+ * This function declares final result based on points scored by player/computer.
+ * @param {object} gamePoints object which is storing points scored by player/computer or tie.
  */
 function finalGameResult(gamePoints){
     console.log("player Points : ",gamePoints.playerPoint);
@@ -95,7 +94,7 @@ function finalGameResult(gamePoints){
 }
 
 /**
- * This function is to start the game of 5 rounds.
+ * This function is used to start the game of 5 rounds.
  */
 function game(){
 
