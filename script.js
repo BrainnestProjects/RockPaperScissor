@@ -4,12 +4,7 @@ const playerWins = [
     {"player":"scissors", "computer":"paper"},
     {"player":"paper", "computer":"rock"}
   ];
-  
-let computerPoint = 0;
-let playerPoint = 0;
-let tiePoint = 0;  
-  
-
+ 
 /**
  * This function ramdomly generates computer selection
  * 
@@ -45,48 +40,53 @@ function playerPlay(){
  * 
  * @param {playerSelection} playerSelection 
  * @param {computerSelection} computerSelection 
- * @returns 
+ * @param {gamePoints} gamePoints 
+ * @returns {gamePoints} returns individual points for Computer,Player and Tie
  */
-function playRound( playerSelection , computerSelection ){
+function playRound( playerSelection , computerSelection , gamePoints){
 
     let roundResult = "";
-    
+        
     if(playerSelection === computerSelection)
      {
         roundResult = "Its a Tie!";
-        tiePoint++;
+        gamePoints.tiePoint++;
      }else{
 
         let result = playerWins.filter( item =>item.player === playerSelection && item.computer === computerSelection )
 
         if (result.length > 0){
             roundResult = "You Win! " + playerSelection + " beats " + computerSelection;
-            playerPoint++;
+            gamePoints.playerPoint++;
         }
         else{
             roundResult = "You Lose! " + computerSelection + " beats " + playerSelection;
-            computerPoint++;
+            gamePoints.computerPoint++;
         }
      }
-
-     return roundResult;
+     if(roundResult)
+        {
+           console.log(roundResult);
+        }
+     return gamePoints;
 }
 
 /**
  * This function declares final result based on points.
+ * @param {gamePoints} gamePoints
  */
-function finalGameResult(){
-    console.log("player Points : ",playerPoint);
-    console.log("computer Points : ",computerPoint);
-    console.log("tiePoints :",tiePoint);
-    if(playerPoint > computerPoint && playerPoint >= tiePoint)
+function finalGameResult(gamePoints){
+    console.log("player Points : ",gamePoints.playerPoint);
+    console.log("computer Points : ",gamePoints.computerPoint);
+    console.log("tiePoints :",gamePoints.tiePoint);
+    if(gamePoints.playerPoint > gamePoints.computerPoint && gamePoints.playerPoint >= gamePoints.tiePoint)
     {
         console.log("Player is a Winner");
         alert("Congratulations...You Win!");
-    }else if(computerPoint > playerPoint && computerPoint >=tiePoint)
+    }else if(gamePoints.computerPoint > gamePoints.playerPoint && gamePoints.computerPoint >= gamePoints.tiePoint)
     {
         console.log("Computer is a Winner");
-        alert("Oops... You Lose");
+        alert("Oops... You Lose!");
     }else
     {
         console.log("Its a Tie!");
@@ -101,6 +101,8 @@ function game(){
 
     let playerSelection;
     let computerSelection;
+    let gamePoints = {"computerPoint" : 0, "playerPoint" : 0, "tiePoint" : 0}; 
+    
     let rounds = 5;
     for(let i=0 ; i<rounds ; i++){
          
@@ -112,17 +114,12 @@ function game(){
          }
          else{
             computerSelection = computerPlay();
-            console.log("Computer's Selection :" , computerSelection); 
-            console.log("Player's Selection :" , playerSelection); 
+            console.log("Computer's Selection :" , computerSelection);
 
-            let roundResult = playRound( playerSelection , computerSelection );
-            if(roundResult)
-            {
-                console.log(roundResult);
-            }
+            gamePoints = playRound( playerSelection , computerSelection , gamePoints );
          }
     }
-    finalGameResult();
+    finalGameResult(gamePoints);
 }
 
 game();
