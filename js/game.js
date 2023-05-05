@@ -18,7 +18,7 @@ function computerPlay(){
 /**
  * This function takes Player Input from console and also validates it.
  * 
- * @returns {string} player's selection taken from console
+ * @returns {string} returns player's selection taken from console
  */
 function playerPlay(){
     let playerChose = prompt("Enter your selection form \"rock\" , \"paper\" , \"scissors\" ");
@@ -72,6 +72,7 @@ function playRound( playerSelection , computerSelection , gamePoints){
 
 /**
  * This function declares final result based on points scored by player/computer.
+ * and give alert and console message about player won or lose.
  * @param {object} gamePoints object which is storing points scored by player/computer or tie.
  */
 function finalGameResult(gamePoints){
@@ -120,5 +121,10 @@ function game(){
     }
     finalGameResult(gamePoints);
 }
+/**
+ * Promt for player selection is causing HTML to load later so setting timeout for it.
+ * This will laod HTML first and then execute promt JS only for first time.
+ */
 
-game();
+setTimeout(game, 1000);
+
