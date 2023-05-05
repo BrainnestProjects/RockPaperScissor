@@ -4,7 +4,10 @@ const playerWins = [
     {"player":"scissors", "computer":"paper"},
     {"player":"paper", "computer":"rock"}
   ];
- 
+
+const playerInputMessage=  "Enter your selection form \"rock\" , \"paper\" , \"scissors\" ";
+const invalidUserInput = "Invalid";
+
 /**
  * This function ramdomly generates computer selections
  * 
@@ -21,15 +24,15 @@ function computerPlay(){
  * @returns {string} returns player's selection taken from console
  */
 function playerPlay(){
-    let playerChose = prompt("Enter your selection form \"rock\" , \"paper\" , \"scissors\" ");
+    let playerChose = prompt(playerInputMessage);
     if(playerChose)
     {
         playerChose = playerChose.toLowerCase();
     }
 
     if(!computerSelections.includes(playerChose)){
-        playerChose = "Invalid";
-        alert("Invalid input");
+        playerChose = invalidUserInput;
+        alert("Invalid input! Please enter the correct option.");
     }
 
     return playerChose;
@@ -108,7 +111,7 @@ function game(){
          
          playerSelection = playerPlay();
 
-         if(playerSelection === "Invalid")
+         if(playerSelection === invalidUserInput)
          {
             rounds = rounds + 1;
          }
@@ -123,7 +126,7 @@ function game(){
 }
 /**
  * Promt for player selection is causing HTML to load later so setting timeout for it.
- * This will laod HTML first and then execute promt JS only for first time.
+ * This will laod HTML first and then execute promt JS. only for first round of the game.
  */
 
 setTimeout(game, 1000);
