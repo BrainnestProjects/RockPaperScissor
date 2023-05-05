@@ -1,3 +1,5 @@
 # RockPaperScissor-JavaScript
 
-https://brainnestprojects.github.io/RockPaperScissor/
+
+Access to the website in following:
+[Click Here](https://brainnestprojects.github.io/RockPaperScissor/)
