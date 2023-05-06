@@ -37,8 +37,8 @@ function playerPlay(){
     }
     else if(!computerSelections.includes(playerChose))
     {
+        alert(`${playerChose} Invalid input! Please enter the correct option.`);
         playerChose = invalidUserInput;
-        alert("Invalid input! Please enter the correct option.");
     }
 
     return playerChose;
