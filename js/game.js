@@ -7,6 +7,7 @@ const playerWins = [
 
 const playerInputMessage=  "Enter your selection form \"rock\" , \"paper\" , \"scissors\" ";
 const invalidUserInput = "Invalid";
+const exitGame = "EXIT";
 
 /**
  * This function ramdomly generates computer selections
@@ -30,7 +31,10 @@ function playerPlay(){
         playerChose = playerChose.toLowerCase();
     }
 
-    if(!computerSelections.includes(playerChose)){
+    if(playerChose === null) // Handle Cancel button to exit the game
+    {
+        playerChose = exitGame;
+    }else if(!computerSelections.includes(playerChose)){
         playerChose = invalidUserInput;
         alert("Invalid input! Please enter the correct option.");
     }
@@ -110,7 +114,10 @@ function game(){
     for(let i=0 ; i<rounds ; i++){
          
          playerSelection = playerPlay();
-
+         if(playerSelection === exitGame)
+         {
+            return; // Stop the game
+         }
          if(playerSelection === invalidUserInput)
          {
             rounds = rounds + 1;
