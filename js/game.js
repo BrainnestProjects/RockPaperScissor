@@ -27,7 +27,7 @@ function computerPlay(){
 function playerPlay(){
     let playerChose = prompt(playerInputMessage);
     if(playerChose){
-        playerChose = playerChose.trim().toLowerCase();
+        playerChose = playerChose.toLowerCase().trim();
     }
 
     if(playerChose === null)
