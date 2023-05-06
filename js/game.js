@@ -26,11 +26,14 @@ function computerPlay(){
  */
 function playerPlay(){
     let playerChose = prompt(playerInputMessage);
-    playerChose = playerChose.trim().toLowerCase();
+    if(playerChose){
+        playerChose = playerChose.trim().toLowerCase();
+    }
 
     if(playerChose === null)
     {
         playerChose = exitGame;
+        console.log("The game has been Ended by You.");
     }
     else if(!computerSelections.includes(playerChose))
     {
