@@ -5,7 +5,7 @@ const playerWins = [
     {"player":"paper", "computer":"rock"}
   ];
 
-const playerInputMessage=  "Enter your selection form \"rock\" , \"paper\" , \"scissors\" ";
+const playerInputMessage=  "Enter your selection from \"rock\" , \"paper\" , \"scissors\" ";
 const invalidUserInput = "Invalid";
 const exitGame = "EXIT";
 
@@ -26,15 +26,14 @@ function computerPlay(){
  */
 function playerPlay(){
     let playerChose = prompt(playerInputMessage);
-    if(playerChose)
-    {
-        playerChose = playerChose.toLowerCase();
-    }
+    playerChose = playerChose.trim().toLowerCase();
 
-    if(playerChose === null) // Handle Cancel button to exit the game
+    if(playerChose === null)
     {
         playerChose = exitGame;
-    }else if(!computerSelections.includes(playerChose)){
+    }
+    else if(!computerSelections.includes(playerChose))
+    {
         playerChose = invalidUserInput;
         alert("Invalid input! Please enter the correct option.");
     }
@@ -111,6 +110,7 @@ function game(){
     let gamePoints = {"computerPoint" : 0, "playerPoint" : 0, "tiePoint" : 0}; 
     
     let rounds = 5;
+    let counter = 1;
     for(let i=0 ; i<rounds ; i++){
          
          playerSelection = playerPlay();
@@ -123,10 +123,13 @@ function game(){
             rounds = rounds + 1;
          }
          else{
+            console.log("Game Round No.", counter);
             computerSelection = computerPlay();
             console.log("Computer's Selection :" , computerSelection);
+            console.log("Player's Selection :" , playerSelection);
 
             gamePoints = playRound( playerSelection , computerSelection , gamePoints );
+            counter++;
          }
     }
     finalGameResult(gamePoints);
