@@ -81,7 +81,7 @@ function startTimer() {
       const computerWeapon = computerPlay();
       updateScore(null, computerWeapon);
     } else {
-      timeout = setTimeout(startTimer, 1000);
+      timeout = setTimeout(startTimer, 1500);
     }
   }
   
